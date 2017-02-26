@@ -5,17 +5,19 @@ import { testAction } from '../../actions/test';
 import { TextEditor, TextEditorListener } from '../TextEditor';
 
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      code: '' 
+      code: '',
+      editorTheme: 'monokai',
     };
 
     this.handleChangeCode = this.handleChangeCode.bind(this);
+    this.handleOnSelectTheme = this.handleOnSelectTheme.bind(this);
   }
 
   componentDidMount() {
@@ -29,7 +31,22 @@ class App extends React.Component {
     });
   }
 
+  renderThemeOption(theme) {
+    return(<option key={theme} value={theme}>{theme}</option>);
+  }
+
+  handleOnSelectTheme(event) {
+    const theme = event.target.value;
+    this.setState({
+      editorTheme: theme
+    });
+  }
+
   render() {
+    const themeOptions = [
+      'monokai', 'tomorrow', 'github', 'kuroir', 'solarized_dark', 'solarized_light', 'xcode',
+    ];
+
     return (
       <div className="App">
         <div className="App-header">
@@ -37,7 +54,12 @@ class App extends React.Component {
           <h2>Test editor</h2>
         </div>
         <div>
-          <TextEditor handleChangeCode={this.handleChangeCode}/>
+          <select onChange={this.handleOnSelectTheme}>
+              {themeOptions.map(this.renderThemeOption)}
+          </select>
+        </div>
+        <div>
+          <TextEditor theme={{type: this.state.editorTheme, currentCode: this.state.code}} handleChangeCode={this.handleChangeCode}/>
           <TextEditorListener code={this.state.code} />
         </div>
       </div>
