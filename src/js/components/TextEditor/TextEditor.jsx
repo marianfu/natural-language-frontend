@@ -11,35 +11,41 @@ import 'brace/theme/xcode';
 
 class TextEditor extends React.Component {
 
-    constructor(props) {
-        super(props);
-        
-        this.onChange = this.onChange.bind(this);
-    }
+  constructor(props) {
+    super(props);
 
-    onChange(newValue) {
-        this.props.handleChangeCode(newValue);
-    }
+    this.onChange = this.onChange.bind(this);
+  }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.theme.type === this.props.theme.type) return false;
-        return true;
-    }
+  onChange(newValue) {
+    this.props.handleChangeCode(newValue);
+  }
 
-    render() {
-        console.log(this.props.theme);
-        return (
-            <AceEditor 
-                fontSize={13}
-                ref="editor"
-                mode="javascript"
-                theme={this.props.theme.type}
-                onChange={this.onChange}
-                name="text_editor"
-                editorProps={{ $blockScrolling: true }}
-            />
-        );
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.theme.type === this.props.theme.type) return false;
+    return true;
+  }
+
+  renderThemeOption(theme) {
+    return (<option key={theme} value={theme}>{theme}</option>);
+  }
+
+  render() {
+    const themeOptions = [
+      'monokai', 'tomorrow', 'github', 'kuroir', 'solarized_dark', 'solarized_light', 'xcode',
+    ];
+    return (
+      <AceEditor
+        fontSize={13}
+        ref="editor"
+        mode="javascript"
+        theme={this.props.theme.type}
+        onChange={this.onChange}
+        name="text_editor"
+        editorProps={{ $blockScrolling: true }}
+      />
+    );
+  }
 }
 
 export default TextEditor;

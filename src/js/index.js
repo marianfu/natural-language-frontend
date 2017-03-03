@@ -5,6 +5,8 @@ import { browserHistory } from 'react-router';
 import App from './components/App';
 import store from './store';
 
+import '../styles/materialize/sass/materialize.scss';
+
 ReactDOM.render(
     <Provider store={store}>
       <App />

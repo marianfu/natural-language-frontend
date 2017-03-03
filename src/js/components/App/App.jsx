@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { testAction } from '../../actions/test';
 import { TextEditor, TextEditorListener } from '../TextEditor';
 
-import logo from './logo.svg';
+import TopBar from 'js/components/TopBar';
+
 import './App.scss';
 
 class App extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +33,7 @@ class App extends React.Component {
   }
 
   renderThemeOption(theme) {
-    return(<option key={theme} value={theme}>{theme}</option>);
+    return (<option key={theme} value={theme}>{theme}</option>);
   }
 
   handleOnSelectTheme(event) {
@@ -49,17 +50,17 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Test editor</h2>
+        <div>
+          <TopBar/>
         </div>
+        <br />
         <div>
           <select onChange={this.handleOnSelectTheme}>
-              {themeOptions.map(this.renderThemeOption)}
+            {themeOptions.map(this.renderThemeOption)}
           </select>
         </div>
-        <div>
-          <TextEditor theme={{type: this.state.editorTheme, currentCode: this.state.code}} handleChangeCode={this.handleChangeCode}/>
+        <div className="editor-position">
+          <TextEditor theme={{ type: this.state.editorTheme, currentCode: this.state.code }} handleChangeCode={this.handleChangeCode} />
           <TextEditorListener code={this.state.code} />
         </div>
       </div>
