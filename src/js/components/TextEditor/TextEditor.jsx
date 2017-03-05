@@ -22,8 +22,17 @@ class TextEditor extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.theme.type === this.props.theme.type) return false;
+    // if (nextProps.width !== this.props.width) {
+    //   return true;
+    // }
+    if (nextProps.theme.type === this.props.theme.type) {
+      return false;
+    } 
     return true;
+  }
+
+  componentDidUpdate() {
+    this.refs.editor.editor.setValue(this.props.code);
   }
 
   renderThemeOption(theme) {
@@ -32,10 +41,11 @@ class TextEditor extends React.Component {
 
   render() {
     const themeOptions = [
-      'monokai', 'tomorrow', 'github', 'kuroir', 'solarized_dark', 'solarized_light', 'xcode',
+      'monokai', 'tomorrow', 'github', 'kuroir', 'solarized_dark', 'xcode',
     ];
     return (
       <AceEditor
+        width='auto'
         fontSize={13}
         ref="editor"
         mode="javascript"
