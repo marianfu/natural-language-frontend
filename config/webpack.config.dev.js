@@ -6,6 +6,7 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
+var path = require('path');
 
 
 
@@ -77,7 +78,10 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web'
-    }
+    },
+    root: [
+      path.resolve('./src')
+    ]
   },
   
   module: {
@@ -100,12 +104,19 @@ module.exports = {
       // "url" loader embeds assets smaller than specified size as data URLs to avoid requests.
       // Otherwise, it acts like the "file" loader.
       {
+        test: /\.scss$/,
+        include: paths.appSrc,
+        loaders: ["style", "css", "sass"]
+      },
+      {
         exclude: [
           /\.html$/,
           /\.(js|jsx)$/,
           /\.css$/,
           /\.json$/,
-          /\.svg$/
+          /\.svg$/,
+          /\.sass$/,
+          /\.scss$/,
         ],
         loader: 'url',
         query: {
