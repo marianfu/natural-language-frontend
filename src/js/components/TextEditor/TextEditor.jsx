@@ -9,6 +9,14 @@ import 'brace/theme/kuroir';
 import 'brace/theme/solarized_dark';
 import 'brace/theme/xcode';
 
+export const defaultOptions = {
+  value: '',
+  mode: 'javascript',
+  theme: 'monokai',
+  fontSize: '13',
+  tabSize: ''
+};
+
 class TextEditor extends React.Component {
 
   constructor(props) {
@@ -27,7 +35,7 @@ class TextEditor extends React.Component {
     // }
     if (nextProps.theme.type === this.props.theme.type) {
       return false;
-    } 
+    }
     return true;
   }
 
@@ -52,6 +60,7 @@ class TextEditor extends React.Component {
         theme={this.props.theme.type}
         onChange={this.onChange}
         name="text_editor"
+        showPrintMargin={false}
         editorProps={{ $blockScrolling: true }}
       />
     );

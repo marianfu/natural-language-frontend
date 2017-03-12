@@ -2,12 +2,12 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { random } from 'lodash';
-import { testAction } from '../../actions/test';
-import { TextEditor, TextEditorListener } from '../TextEditor';
+import { changeTextEditorTheme, changeTextEditorValue } from 'js/components/TextEditor/actions';
+import moment from 'moment';
 
-import TopBar from 'js/components/TopBar';
-import Button from 'js/components/shared/Button';
-
+import TextEditor from '../TextEditor';
+import { RaisedButton, AppBar } from 'material-ui';
+import LeftPanel from 'js/components/shared/LeftPanel';
 import './App.scss';
 
 class App extends React.Component {
@@ -17,6 +17,7 @@ class App extends React.Component {
     this.state = {
       code: '',
       editorTheme: 'monokai',
+      lastTimeInput: moment()
     };
 
     this.handleChangeCode = this.handleChangeCode.bind(this);
@@ -26,14 +27,18 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { testAction } = this.props;
-    testAction();
+
   }
 
   handleChangeCode(newValue) {
     this.setState({
       code: newValue
     });
+    const now = moment();
+    if (now.diff(this.state.lastTimeInput, 'seconds') > 4) {
+      this.props.changeTextEditorValue(newValue);
+      this.setState({ lastTimeInput: moment() });
+    }
   }
 
   renderThemeOption(theme) {
@@ -59,28 +64,25 @@ class App extends React.Component {
     this.setState({
       editorTheme: theme
     });
+    this.props.changeTextEditorTheme(theme);
   }
 
   render() {
-    const themeOptions = [
-      'monokai', 'tomorrow', 'github', 'kuroir', 'solarized_dark', 'xcode',
-    ];
 
     return (
-      <div className="no-padding">
-        <div>
-          <TopBar />
+      <div>
+        <div className="row">
+          <AppBar
+            style={{ 'background-color': '#3f51b5' }}
+            title="Title"
+            iconClassNameRight="muidocs-icon-navigation-expand-more"
+          />
         </div>
-        <div>
-          <select onChange={this.handleOnSelectTheme}>
-            {themeOptions.map(this.renderThemeOption)}
-          </select>
-        </div>
-        <div className="col s12 row no-padding">
-          <div className="col s3 no-padding">
-            <p >test</p>
+        <div className="row">
+          <div className="large-4 columns" style={{ 'height': '70vh' }}>
+            <LeftPanel />
           </div>
-          <div ref="parent" className="col s9 no-padding">
+          <div ref="parent" className="large-8 columns">
             <TextEditor
               code={this.state.code}
               theme={{ type: this.state.editorTheme, currentCode: this.state.code }}
@@ -89,9 +91,12 @@ class App extends React.Component {
             {/*<TextEditorListener code={this.state.code} />*/}
           </div>
         </div>
-        <div>
-          <Button onClick={this.evaluateCode} title="test" color="purple darken-4" />
-          <Button onClick={this.changeEditorTheme} title="Random Theme" />
+        <div className="row">
+          <RaisedButton
+            primary
+            label='Random Theme'
+            onClick={this.changeEditorTheme}
+          />
         </div>
       </div>
     );
@@ -100,7 +105,8 @@ class App extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    testAction: testAction
+    changeTextEditorTheme,
+    changeTextEditorValue
   }, dispatch);
 }
 

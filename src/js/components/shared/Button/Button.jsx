@@ -1,28 +1,24 @@
 import React from 'react';
+import classNames from 'classnames';
 
 class Button extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.handleOnCliCk = this.handleOnCliCk.bind(this);
-  }
-
-  handleOnCliCk() {
+  handleClick = () => {
     if (this.props.onClick) {
       this.props.onClick();
     }
   }
 
   render() {
-    const { color, disabled } = this.props;
-    const style = `waves-effect waves-light btn ${color || ''} ${disabled && 'disabled'}`
-    
+    const { title, className, disabled } = this.props;
+    const classes = classNames(className, { disabled })
+
     return (
       <button
-        className={style}
-        onClick={this.handleOnCliCk}
+        className={classes}
+        onClick={this.handleClick}
       >
-        {this.props.title}
+        {title}
       </button>
     );
   }
@@ -31,12 +27,13 @@ class Button extends React.Component {
 Button.propTypes = {
   title: React.PropTypes.string.isRequired,
   disabled: React.PropTypes.bool,
-  color: React.PropTypes.string,
+  className: React.PropTypes.string,
   onClick: React.PropTypes.func
 }
 
 Button.defaultProps = {
-  disabled: false
+  disabled: false,
+  className: 'btn'
 }
 
 export default Button;
