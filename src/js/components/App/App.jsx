@@ -6,8 +6,6 @@ import { changeTextEditorTheme, changeTextEditorValue } from 'js/components/Text
 import moment from 'moment';
 
 import TextEditor from '../TextEditor';
-import { RaisedButton, AppBar } from 'material-ui';
-import LeftPanel from 'js/components/shared/LeftPanel';
 import './App.scss';
 
 class App extends React.Component {
@@ -71,33 +69,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <div className="row">
-          <AppBar
-            style={{ 'background-color': '#3f51b5' }}
-            title="Title"
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
-          />
-        </div>
-        <div className="row">
-          <div className="large-4 columns" style={{ 'height': '70vh' }}>
-            <LeftPanel />
-          </div>
-          <div ref="parent" className="large-8 columns">
-            <TextEditor
-              code={this.state.code}
-              theme={{ type: this.state.editorTheme, currentCode: this.state.code }}
-              handleChangeCode={this.handleChangeCode}
-            />
-            {/*<TextEditorListener code={this.state.code} />*/}
-          </div>
-        </div>
-        <div className="row">
-          <RaisedButton
-            primary
-            label='Random Theme'
-            onClick={this.changeEditorTheme}
-          />
-        </div>
+        { this.props.children }
       </div>
     );
   }

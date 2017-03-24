@@ -1,5 +1,7 @@
 import React from 'react';
 import AceEditor from 'react-ace';
+import className from 'classnames/bind';
+import styles from 'styles/materialize/sass/materialize.scss';
 
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
@@ -8,6 +10,8 @@ import 'brace/theme/github';
 import 'brace/theme/kuroir';
 import 'brace/theme/solarized_dark';
 import 'brace/theme/xcode';
+
+let cx = className.bind(styles);
 
 export const defaultOptions = {
   value: '',
@@ -19,20 +23,19 @@ export const defaultOptions = {
 
 class TextEditor extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.onChange = this.onChange.bind(this);
+  static propTypes = {
+    value: React.PropTypes.string,
+    mode: React.PropTypes.string,
+    theme: React.PropTypes.string,
+    fontSize: React.PropTypes.string,
+    onChange: React.PropTypes.func,
   }
 
-  onChange(newValue) {
-    this.props.handleChangeCode(newValue);
+  static defaultProps = {
+    ...defaultOptions
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    // if (nextProps.width !== this.props.width) {
-    //   return true;
-    // }
     if (nextProps.theme.type === this.props.theme.type) {
       return false;
     }
@@ -43,7 +46,7 @@ class TextEditor extends React.Component {
     this.refs.editor.editor.setValue(this.props.code);
   }
 
-  renderThemeOption(theme) {
+  renderThemeOption = (theme) => {
     return (<option key={theme} value={theme}>{theme}</option>);
   }
 
@@ -51,18 +54,24 @@ class TextEditor extends React.Component {
     const themeOptions = [
       'monokai', 'tomorrow', 'github', 'kuroir', 'solarized_dark', 'xcode',
     ];
+
+    let btnClassName = cx({
+      'btn': true
+    });
+
     return (
-      <AceEditor
-        width='auto'
-        fontSize={13}
-        ref="editor"
-        mode="javascript"
-        theme={this.props.theme.type}
-        onChange={this.onChange}
-        name="text_editor"
-        showPrintMargin={false}
-        editorProps={{ $blockScrolling: true }}
-      />
+      <div>
+        <AceEditor
+          width='auto'
+          fontSize={13}
+          mode="javascript"
+          theme='monokai'
+          onChange={this.props.onChange}
+          name="text_editor"
+          showPrintMargin={false}
+          editorProps={{ $blockScrolling: true }}
+        />
+      </div>
     );
   }
 }
