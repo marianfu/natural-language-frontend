@@ -1,0 +1,35 @@
+.text-editor-header {
+  display: flex;
+  align-items: left;
+  justify-content: flex-start;
+  height: 2.2em;  
+}
+
+.header-text {
+  color: white;
+  background-color: #272822 ;
+}
+
+.icon-color {
+  color: #EEEEEE;
+  &:hover {
+    color: #E0E0E0
+  }
+}
+
+.text-editor-footer {
+  height: 2.2em;
+  background-color: #343434;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.text-editor-footer .icon-button {
+  margin-left: 0.6em;
+  color: #343436;
+}
+
+.btn {
+  background-color: #343436;
+}

@@ -8,6 +8,7 @@
     "babel-eslint": "7.1.1",
     "babel-jest": "18.0.0",
     "babel-loader": "6.2.10",
+    "babel-plugin-import": "^1.1.1",
     "babel-preset-react-app": "^2.1.0",
     "babel-runtime": "^6.20.0",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
@@ -18,7 +19,7 @@
     "detect-port": "1.0.1",
     "dotenv": "2.0.0",
     "enzyme": "^2.7.1",
-    "eslint": "3.8.1",
+    "eslint": "^3.8.1",
     "eslint-config-react-app": "^0.5.1",
     "eslint-loader": "1.6.0",
     "eslint-plugin-flowtype": "2.21.0",
@@ -52,12 +53,17 @@
     "whatwg-fetch": "2.0.2"
   },
   "dependencies": {
+    "antd": "^2.8.2",
+    "classnames": "^2.2.5",
     "lodash": "^4.17.4",
+    "moment": "^2.17.1",
     "react": "^15.4.2",
     "react-ace": "^4.1.6",
     "react-dom": "^15.4.2",
+    "react-materialize": "^0.18.1",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0"
   },
@@ -65,7 +71,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "lint": "eslint src/js/** --ext .js --ext .jsx || exit 0 "
+    "lint": "eslint src/js/** "
   },
   "jest": {
     "collectCoverageFrom": [

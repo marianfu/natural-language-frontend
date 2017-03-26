@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import testReducer from './testReducer';
+import textEditor from 'js/components/TextEditor/reducer';
 
 const rootReducer = combineReducers({
-  test: testReducer
+  textEditor
 });
 
 export default rootReducer;

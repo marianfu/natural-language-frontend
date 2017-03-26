@@ -1,5 +1,8 @@
 import React from 'react';
 import AceEditor from 'react-ace';
+import className from 'classnames/bind';
+import styles from 'styles/materialize/sass/materialize.scss';
+import { debounce } from 'lodash';
 
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
@@ -9,51 +12,73 @@ import 'brace/theme/kuroir';
 import 'brace/theme/solarized_dark';
 import 'brace/theme/xcode';
 
+let cx = className.bind(styles);
+
+export const defaultOptions = {
+  value: '',
+  mode: 'javascript',
+  theme: 'monokai',
+  fontSize: '13px',
+  tabSize: ''
+};
+
 class TextEditor extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.onChange = this.onChange.bind(this);
+    this.handleChange = debounce(this.handleChange.bind(this), 2000);
   }
 
-  onChange(newValue) {
-    this.props.handleChangeCode(newValue);
+  static propTypes = {
+    value: React.PropTypes.string,
+    mode: React.PropTypes.string,
+    theme: React.PropTypes.string,
+    fontSize: React.PropTypes.string,
+    onChange: React.PropTypes.func,
+  }
+
+  static defaultProps = {
+    ...defaultOptions
+  }
+
+  renderThemeOption = (theme) => {
+    return (<option key={theme} value={theme}>{theme}</option>);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    // if (nextProps.width !== this.props.width) {
-    //   return true;
-    // }
-    if (nextProps.theme.type === this.props.theme.type) {
-      return false;
-    } 
-    return true;
+    if (nextProps !== this.props) {
+      return true;
+    }
+    return false;
   }
 
-  componentDidUpdate() {
-    this.refs.editor.editor.setValue(this.props.code);
-  }
-
-  renderThemeOption(theme) {
-    return (<option key={theme} value={theme}>{theme}</option>);
+  handleChange(value) {
+    this.props.changeTextEditorValue(value);
   }
 
   render() {
     const themeOptions = [
       'monokai', 'tomorrow', 'github', 'kuroir', 'solarized_dark', 'xcode',
     ];
+
+    let btnClassName = cx({
+      'btn': true
+    });
+
     return (
-      <AceEditor
-        width='auto'
-        fontSize={13}
-        ref="editor"
-        mode="javascript"
-        theme={this.props.theme.type}
-        onChange={this.onChange}
-        name="text_editor"
-        editorProps={{ $blockScrolling: true }}
-      />
+      <div>
+        <AceEditor
+          value={this.props.value}
+          width='auto'
+          fontSize={this.props.fontSize}
+          mode="javascript"
+          theme={this.props.theme}
+          onChange={this.handleChange}
+          name="text_editor"
+          showPrintMargin={false}
+          editorProps={{ $blockScrolling: true }}
+        />
+      </div>
     );
   }
 }

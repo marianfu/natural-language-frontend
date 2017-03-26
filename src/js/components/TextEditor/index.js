@@ -1,4 +1,3 @@
-import TextEditor from './TextEditor';
-import TextEditorListener from './TextEditorListener';
+import TextEditor, { defaultOptions } from './TextEditor';
 
-export { TextEditor, TextEditorListener };
+export default TextEditor;
