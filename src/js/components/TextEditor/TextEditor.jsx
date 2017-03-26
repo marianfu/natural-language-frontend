@@ -2,6 +2,7 @@ import React from 'react';
 import AceEditor from 'react-ace';
 import className from 'classnames/bind';
 import styles from 'styles/materialize/sass/materialize.scss';
+import { debounce } from 'lodash';
 
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
@@ -17,11 +18,16 @@ export const defaultOptions = {
   value: '',
   mode: 'javascript',
   theme: 'monokai',
-  fontSize: '13',
+  fontSize: '13px',
   tabSize: ''
 };
 
 class TextEditor extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleChange = debounce(this.handleChange.bind(this), 2000);
+  }
 
   static propTypes = {
     value: React.PropTypes.string,
@@ -35,19 +41,19 @@ class TextEditor extends React.Component {
     ...defaultOptions
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.theme.type === this.props.theme.type) {
-      return false;
-    }
-    return true;
-  }
-
-  componentDidUpdate() {
-    this.refs.editor.editor.setValue(this.props.code);
-  }
-
   renderThemeOption = (theme) => {
     return (<option key={theme} value={theme}>{theme}</option>);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps !== this.props) {
+      return true;
+    }
+    return false;
+  }
+
+  handleChange(value) {
+    this.props.changeTextEditorValue(value);
   }
 
   render() {
@@ -62,11 +68,12 @@ class TextEditor extends React.Component {
     return (
       <div>
         <AceEditor
+          value={this.props.value}
           width='auto'
-          fontSize={13}
+          fontSize={this.props.fontSize}
           mode="javascript"
-          theme='monokai'
-          onChange={this.props.onChange}
+          theme={this.props.theme}
+          onChange={this.handleChange}
           name="text_editor"
           showPrintMargin={false}
           editorProps={{ $blockScrolling: true }}
