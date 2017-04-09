@@ -18,7 +18,6 @@ export default class OptionsBar extends React.Component {
   }
 
   render() {
-
     const className = cx('bar');
 
     return (
@@ -37,3 +36,4 @@ export default class OptionsBar extends React.Component {
     );
   }
 }
+

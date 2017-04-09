@@ -7,6 +7,6 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({
     changeTextEditorTheme, changeFontSize
   }, dispatch);
-}
+};
 
 export default connect(null, mapDispatchToProps)(Editor);
