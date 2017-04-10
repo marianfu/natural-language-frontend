@@ -1,12 +1,11 @@
 import React from 'react';
-import { Row, Col, Tabs, Select } from 'antd';
 import TextEditor from 'js/components/TextEditor/TextEditor';
 import { themes, fontSizes } from 'js/components/TextEditor/options';
-// import { compileToPseudocode } from 'prose-js';
+import { Row, Col, Tabs, Card } from 'antd';
+import OptionsBar from './components/OptionsBar';
 import pseudo from 'pseudo-js';
 
 const TabPane = Tabs.TabPane;
-const Option = Select.Option;
 
 export default class Editor extends React.Component {
 
@@ -42,27 +41,18 @@ export default class Editor extends React.Component {
   }
 
   render() {
-
     return (
       <Row gutter={8}>
         <Col span={6}>
+          <Card title="Instrucciones" >
+            <p>test</p>
+          </Card>
         </Col>
         <Col span={18}>
           <Tabs defaultActiveKey="1">
             <TabPane tab="Editor" key="1">
               <TextEditor mode="text" value={this.state.text} onChange={this.handleChangeText} />
-              <div>
-                <Select defaultValue="monokai" style={{ width: 120 }} onChange={this.handleChangeTheme}>
-                  {themes.map((theme, index) =>
-                    <Option key={index} value={theme}>{theme}</Option>
-                  )}
-                </Select>
-                <Select defaultValue="13px" style={{ width: 120 }} onChange={this.handleChangeFontSize}>
-                  {fontSizes.map((fontSize, index) =>
-                    <Option key={index} value={fontSize}>{fontSize}</Option>
-                  )}
-                </Select>
-              </div>
+              <OptionsBar/>
             </TabPane>
             <TabPane tab="AST" key="2">
               <TextEditor mode="json" value={this.state.ast} />
