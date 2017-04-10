@@ -1,7 +1,9 @@
 import React from 'react';
 import { Row, Col, Tabs, Select } from 'antd';
-import TextEditor from './containers/TextEditor.container';
+import TextEditor from 'js/components/TextEditor/TextEditor';
 import { themes, fontSizes } from 'js/components/TextEditor/options';
+// import { compileToPseudocode } from 'prose-js';
+import pseudo from 'pseudo-js';
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
@@ -10,6 +12,11 @@ export default class Editor extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      text: '',
+      javascript: '',
+      ast: ''
+    }
     this.handleChangeTheme = this.handleChangeTheme.bind(this);
     this.handleChangeFontSize = this.handleChangeFontSize.bind(this);
   }
@@ -22,6 +29,18 @@ export default class Editor extends React.Component {
     this.props.changeFontSize(fontSize);
   }
 
+  handleChangeText = (text) => {
+    var javascript = pseudo.compileToJS(text);
+    var ast = JSON.stringify(pseudo.compileToSyntaxTree(text));
+    this.setState((previousState) => {
+      return {
+        text,
+        javascript,
+        ast
+      } 
+    });
+  }
+
   render() {
 
     return (
@@ -31,7 +50,7 @@ export default class Editor extends React.Component {
         <Col span={18}>
           <Tabs defaultActiveKey="1">
             <TabPane tab="Editor" key="1">
-              <TextEditor />
+              <TextEditor mode="text" value={this.state.text} onChange={this.handleChangeText} />
               <div>
                 <Select defaultValue="monokai" style={{ width: 120 }} onChange={this.handleChangeTheme}>
                   {themes.map((theme, index) =>
@@ -45,8 +64,12 @@ export default class Editor extends React.Component {
                 </Select>
               </div>
             </TabPane>
-            <TabPane tab="AST" key="2">Content of Tab Pane 2</TabPane>
-            <TabPane tab="Javascript" key="3">Content of Tab Pane 3</TabPane>
+            <TabPane tab="AST" key="2">
+              <TextEditor mode="json" value={this.state.ast} />
+            </TabPane>
+            <TabPane tab="Javascript" key="3">
+              <TextEditor value={this.state.javascript} />
+            </TabPane>
           </Tabs>
         </Col>
       </Row>
