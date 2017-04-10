@@ -53,7 +53,7 @@ class TextEditor extends React.Component {
   }
 
   handleChange(value) {
-    this.props.changeTextEditorValue(value);
+    this.props.onChange(value);
   }
 
   render() {
@@ -71,7 +71,7 @@ class TextEditor extends React.Component {
           value={this.props.value}
           width='auto'
           fontSize={this.props.fontSize}
-          mode="javascript"
+          mode={this.props.mode}
           theme={this.props.theme}
           onChange={this.handleChange}
           name="text_editor"

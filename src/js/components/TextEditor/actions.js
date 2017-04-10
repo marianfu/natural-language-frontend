@@ -3,13 +3,19 @@ import {
 } from './constants';
 
 export function changeTextEditorTheme(theme) {
-  return ({type: SET_TEXT_EDITOR_THEME, payload: theme});
-  }
+  return ({ type: SET_TEXT_EDITOR_THEME, payload: theme });
+}
 
 export function changeTextEditorValue(value) {
-  return ({type: SET_TEXT_EDITOR_VALUE, payload: value});
+  return ({ type: SET_TEXT_EDITOR_VALUE, payload: value });
 }
 
 export function changeFontSize(fontSize) {
-  return ({type: SET_FONT_SIZE, payload: fontSize});
+  return ({ type: SET_FONT_SIZE, payload: fontSize });
 }
+
+export default {
+  changeTextEditorTheme,
+  changeTextEditorValue,
+  changeFontSize
+};
