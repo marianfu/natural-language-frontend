@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { BrowserRouter, Route, browserHistory } from 'react-router-dom';
 import store from './store';
 import App from './components/App';
 import Sandbox from './views/Sandbox';
-import HomePage from './views/HomePage';
 import Editor from './views/Editor';
+import Home from './views/Home';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App} >
-        <Route path="home" component={HomePage} />
-        <Route path="editor" component={Editor} />
-        <Route path="sandbox" component={Sandbox} />
-      </Route>
-    </Router>
+    <BrowserRouter>
+      <App>
+        <Route exact path="/" component={Home}/>
+        <Route path="/learn" component={Editor}/>
+        <Route path="/docs" component={Sandbox}/>
+      </App>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

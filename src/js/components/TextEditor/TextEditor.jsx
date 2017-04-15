@@ -26,7 +26,7 @@ class TextEditor extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleChange = debounce(this.handleChange.bind(this), 2000);
+    this.handleChange = debounce(this.handleChange.bind(this), 500);
   }
 
   static propTypes = {

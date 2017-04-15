@@ -1,0 +1,55 @@
+@import '~antd/dist/antd.css';
+
+$blue-color: #8593ec;
+$orange-color: #ff9868;
+$pink-color: #ff3c80;
+$yellow-color: #fff17a;
+
+.layout {
+	height: 100%;
+
+	* {
+		font-size: 15px;
+		text-align: center;
+	}
+
+	span {
+		padding: 0px 10px 0px 10px;
+	}
+
+	a {
+		&:focus {
+			text-decoration: none;
+		}
+	}
+
+	.header {
+		background-color: $blue-color;
+		padding: 0;
+	}
+
+	.content{
+		background-color: $yellow-color;
+	}
+
+	.footer {
+		background-color: $orange-color;
+
+		.inner {
+			position: relative;
+			height: -webkit-calc(50% - 15px);
+		    height:    -moz-calc(50% - 15px);
+		    height:         calc(50% - 15px);
+		}
+
+		a {
+			font-weight: bold;
+		}
+	}
+
+	.header, .footer {
+		height: 15%;
+		min-height: 60px;
+	}
+}
+
