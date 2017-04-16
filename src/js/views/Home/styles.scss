@@ -1,0 +1,34 @@
+.typewriter {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+    background-size: 110%;
+
+    &>div {
+    	width: 100%;
+    	height: 100%;
+    	padding: 15%;
+    	background-color: rgba(250, 235, 215, 0.2);
+    }
+
+	span {
+		overflow: hidden;
+		padding: 0px !important;
+		font-size: 8em;
+
+	  	&:last-of-type::after {
+	  		font-size: 0.8em;
+	  		content: "";
+	  		border-right: .09em solid;
+			animation: blink-caret .80s step-end infinite;
+		}
+	}
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: inherit; }
+}

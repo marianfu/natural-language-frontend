@@ -1,10 +1,12 @@
-.menu {
-	margin: 0 auto;
-	width: 33%;
-	border-bottom-left-radius: 7px;
-	border-bottom-right-radius: 7px;
+.header {
+	.menu {
+		margin: 0 auto;
+		width: 33%;
+		background: none;
+		border: none;
 
-	li {
-		width: 33.33%;
+		li {
+			width: 33.33%;
+		}
 	}
 }

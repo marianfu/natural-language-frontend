@@ -3,7 +3,6 @@ import AceEditor from 'react-ace';
 import className from 'classnames/bind';
 import styles from 'styles/materialize/sass/materialize.scss';
 import { debounce } from 'lodash';
-
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
 import 'brace/theme/tomorrow';

@@ -9,7 +9,7 @@ class Nav extends React.Component {
     return (
       <Menu mode="horizontal" className="menu">
         <Menu.Item key="home">
-          <NavLink to="/"><Icon type="home"/>Home</NavLink>
+          <NavLink to=""><Icon type="home"/>Home</NavLink>
         </Menu.Item>
         <Menu.Item key="help">
           <NavLink to="/help"><Icon type="question"/>Help</NavLink>

@@ -1,16 +1,21 @@
 @import '~antd/dist/antd.css';
 
-$blue-color: #8593ec;
+$black-color: #232323;
+$blue-light-color: #8bf6ff;
+$blue-color: #4fc3f7;
+$blue-dark-color: #0093c4;
 $orange-color: #ff9868;
-$pink-color: #ff3c80;
+$pink-color: #b5004d;
 $yellow-color: #fff17a;
 
 .layout {
 	height: 100%;
+	color: $black-color;
 
 	* {
 		font-size: 15px;
 		text-align: center;
+		color: $black-color;
 	}
 
 	span {
@@ -18,22 +23,31 @@ $yellow-color: #fff17a;
 	}
 
 	a {
-		&:focus {
+		color: rgba(0, 0, 0, 0.65);
+
+		&:hover, &:focus {
 			text-decoration: none;
 		}
 	}
 
+	.header, .footer {
+		z-index: 2;
+	}
+
 	.header {
-		background-color: $blue-color;
 		padding: 0;
+		height: 48px;
+		background-color: $blue-light-color;
 	}
 
 	.content{
-		background-color: $yellow-color;
+		background-color: $blue-color;
+		min-height: 13em;
 	}
 
 	.footer {
-		background-color: $orange-color;
+		padding: 10px;
+		background-color: rgba(35, 35, 35, 0.25);
 
 		.inner {
 			position: relative;
@@ -45,11 +59,6 @@ $yellow-color: #fff17a;
 		a {
 			font-weight: bold;
 		}
-	}
-
-	.header, .footer {
-		height: 15%;
-		min-height: 60px;
 	}
 }
 
