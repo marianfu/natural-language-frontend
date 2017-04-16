@@ -1,0 +1,20 @@
+.editorContainer {
+	padding: 4vh 2vw 5vh 2vw;
+
+	.editor {
+		margin-right: 2vh;
+		margin-bottom: 2vh;
+		border-radius: 3px;
+
+		* {
+			color: white;
+			text-align: left;
+			font-size: inherit;
+		}
+	}
+
+	.card {
+		margin-right: 2vh;
+		border-radius: 3px;
+	}
+}

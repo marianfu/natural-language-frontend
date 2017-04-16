@@ -18,10 +18,6 @@ $yellow-color: #fff17a;
 		color: $black-color;
 	}
 
-	span {
-		padding: 0px 10px 0px 10px;
-	}
-
 	a {
 		color: rgba(0, 0, 0, 0.65);
 
@@ -37,7 +33,7 @@ $yellow-color: #fff17a;
 	.header {
 		padding: 0;
 		height: 48px;
-		background-color: $blue-light-color;
+		background-color: $yellow-color;
 	}
 
 	.content{
@@ -46,6 +42,9 @@ $yellow-color: #fff17a;
 	}
 
 	.footer {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
 		padding: 10px;
 		background-color: rgba(35, 35, 35, 0.25);
 
@@ -58,6 +57,10 @@ $yellow-color: #fff17a;
 
 		a {
 			font-weight: bold;
+		}
+		
+		span {
+			padding: 0px 10px 0px 10px;
 		}
 	}
 }

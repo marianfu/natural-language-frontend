@@ -1,7 +1,5 @@
 import React from 'react';
 import AceEditor from 'react-ace';
-import className from 'classnames/bind';
-import styles from 'styles/materialize/sass/materialize.scss';
 import { debounce } from 'lodash';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
@@ -10,8 +8,6 @@ import 'brace/theme/github';
 import 'brace/theme/kuroir';
 import 'brace/theme/solarized_dark';
 import 'brace/theme/xcode';
-
-let cx = className.bind(styles);
 
 export const defaultOptions = {
   value: '',
@@ -60,15 +56,14 @@ class TextEditor extends React.Component {
       'monokai', 'tomorrow', 'github', 'kuroir', 'solarized_dark', 'xcode',
     ];
 
-    let btnClassName = cx({
-      'btn': true
-    });
-
     return (
       <div>
         <AceEditor
           value={this.props.value}
+          className={this.props.className}
+          readOnly={this.props.readOnly}
           width='auto'
+          height={this.props.height}
           fontSize={this.props.fontSize}
           mode={this.props.mode}
           theme={this.props.theme}

@@ -1,20 +1,21 @@
 import React from 'react';
-import TextEditor from 'js/components/TextEditor/TextEditor';
+import TextEditor from 'js/components/TextEditor';
 import { themes, fontSizes } from 'js/components/TextEditor/options';
-import { Row, Col, Tabs, Card } from 'antd';
+import { Row, Col, Card } from 'antd';
 import OptionsBar from './components/OptionsBar';
 import pseudo from 'pseudo-js';
-
-const TabPane = Tabs.TabPane;
+import './styles.scss';
 
 export default class Editor extends React.Component {
 
   constructor(props) {
     super(props);
+
+    var text = 'lista es [1, 2, 3, 4]\n\npor cada valor en lista {\n\tsi valor igual 2 {\n\t\tmostrar(2)\n\t} sino si valor > 2 {\n\t\tmostrar(valor)\n\t}\n}';
     this.state = {
-      text: '',
-      javascript: '',
-      ast: ''
+      text: text,
+      javascript: pseudo.compileToJS(text),
+      ast: JSON.stringify(pseudo.compileToSyntaxTree(text))
     }
     this.handleChangeTheme = this.handleChangeTheme.bind(this);
     this.handleChangeFontSize = this.handleChangeFontSize.bind(this);
@@ -42,25 +43,23 @@ export default class Editor extends React.Component {
 
   render() {
     return (
-      <Row gutter={8}>
+      <Row className="editorContainer">
         <Col span={6}>
-          <Card title="Instrucciones" >
-            <p>test</p>
+          <Card className="card" title="Introduction" bordered={false}>
+            <p>Instructions + possible tutorial goes here</p>
+            <p>Instructions + possible tutorial goes here</p>
+            <p>Instructions + possible tutorial goes here</p>
+            <p>Instructions + possible tutorial goes here</p>
+            <p>Instructions + possible tutorial goes here</p>
+            <p>Instructions + possible tutorial goes here</p>
           </Card>
         </Col>
-        <Col span={18}>
-          <Tabs defaultActiveKey="1">
-            <TabPane tab="Editor" key="1">
-              <TextEditor mode="text" value={this.state.text} onChange={this.handleChangeText} />
-              <OptionsBar/>
-            </TabPane>
-            <TabPane tab="AST" key="2">
-              <TextEditor mode="json" value={this.state.ast} />
-            </TabPane>
-            <TabPane tab="Javascript" key="3">
-              <TextEditor value={this.state.javascript} />
-            </TabPane>
-          </Tabs>
+        <Col span={9}>
+          <TextEditor className="editor" mode="text" height='80vh' value={this.state.text} onChange={this.handleChangeText} />
+        </Col>
+        <Col span={9}>
+          <TextEditor className="editor" readOnly={true} mode="json" height='39vh' value={this.state.ast} />
+          <TextEditor className="editor" readOnly={true} height='39vh' value={this.state.javascript} />
         </Col>
       </Row>
     );

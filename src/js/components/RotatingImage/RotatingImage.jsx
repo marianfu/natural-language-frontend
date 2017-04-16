@@ -12,15 +12,22 @@ class RotatingImage extends React.Component {
     this.setRandomImg = this.setRandomImg.bind(this);
   }
 
-  getRandomImageId() {
+  getRandomImageId(previousValue) {
     const min = 0;
     const max = this.props.images.length;
-    return Math.floor(Math.random() * (max - min)) + min;
+    let rand = Math.floor(Math.random() * (max - min)) + min;
+    while (rand == previousValue) {
+      rand = Math.floor(Math.random() * (max - min)) + min;
+    }
+    return rand;
   }
 
   setRandomImg() {
-    this.setState({
-      currentImage: this.getRandomImageId()
+    var self = this;
+    self.setState((previousState) => {
+      return {
+        currentImage: self.getRandomImageId(previousState.currentImage)
+      };
     });
     setTimeout(this.setRandomImg, 3000);
   }

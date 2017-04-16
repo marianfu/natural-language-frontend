@@ -11,7 +11,7 @@ class Home extends React.Component {
     this.state = {
       writers: [1, 0, 0]
     };
-    this.handleTypingEnd = debounce(this.handleTypingEnd.bind(this), 1000);
+    this.handleTypingEnd = debounce(this.handleTypingEnd.bind(this), 500);
   }
 
   static defaultProps = {
