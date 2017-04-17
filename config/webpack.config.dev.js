@@ -161,9 +161,30 @@ module.exports = {
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
-      }
-      // ** STOP ** Are you adding a new loader?
-      // Remember to add the new extension(s) to the "url" loader exclusion list.
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: ['file-loader?context=src/images&name=images/[path][name].[ext]', {
+          loader: 'image-webpack-loader',
+          query: {
+            mozjpeg: {
+              progressive: true,
+            },
+            gifsicle: {
+              interlaced: false,
+            },
+            optipng: {
+              optimizationLevel: 4,
+            },
+            pngquant: {
+              quality: '75-90',
+              speed: 3,
+            },
+          },
+        }],
+        exclude: /node_modules/,
+        include: __dirname,
+      },
     ]
   },
 

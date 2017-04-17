@@ -1,53 +1,54 @@
 import React from 'react';
+import { random } from 'lodash';
+import images from 'assets/images';
+import './styles.scss';
+
+function getRandomImage(images, currentImage) {
+  const randomNumber = random(images.length - 1);
+  return (images[randomNumber] !== currentImage)
+    ? images[randomNumber]
+    : getRandomImage(images, currentImage);
+}
 
 class RotatingImage extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      currentImage: 0
-    };
+  state = {
+    imagesKeys: [],
+    currentImage: '',
+  };
 
-    this.getRandomImageId = this.getRandomImageId.bind(this);
-    this.setRandomImg = this.setRandomImg.bind(this);
+  componentDidMount() {
+    this.setFirstImage();
   }
 
-  getRandomImageId(previousValue) {
-    const min = 0;
-    const max = this.props.images.length;
-    let rand = Math.floor(Math.random() * (max - min)) + min;
-    while (rand == previousValue) {
-      rand = Math.floor(Math.random() * (max - min)) + min;
-    }
-    return rand;
+  setFirstImage = () => {
+    const imagesKeys = Object.keys(images);
+    const randomNumber = random(imagesKeys.length - 1);
+    const currentImage = imagesKeys[randomNumber];
+
+    this.setState({ imagesKeys, currentImage });
+    setTimeout(this.getRandomImage, 3000);
   }
 
-  setRandomImg() {
-    var self = this;
-    self.setState((previousState) => {
-      return {
-        currentImage: self.getRandomImageId(previousState.currentImage)
-      };
-    });
-    setTimeout(this.setRandomImg, 3000);
+  getRandomImage = () => {
+    const { currentImage, imagesKeys } = this.state;
+    const newImage = getRandomImage(imagesKeys, currentImage);
+
+    this.setState({ currentImage: newImage });
+    setTimeout(this.getRandomImage, 3000);
   }
 
-  componentDidMount () {
-    this.setRandomImg();
-  }
+  render() {
+    const currentImage = this.state.currentImage;
+    const image = images[currentImage];
 
-  render () {
-    var style = {
-      backgroundImage: 'url(' + this.props.images[this.state.currentImage] + ')'
-    };
-    
     return (
-      <div style={style} className={this.props.className}>
-        { this.props.children }
+      <div className={this.props.className}>
+        <img className='imagePosition' alt="coding" src={image} />
+        {this.props.children}
       </div>
     )
   }
-
 }
 
 export default RotatingImage;
