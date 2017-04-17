@@ -27,15 +27,20 @@ class RotatingImage extends React.Component {
     const currentImage = imagesKeys[randomNumber];
 
     this.setState({ imagesKeys, currentImage });
-    setTimeout(this.getRandomImage, 3000);
+    this.firstImage = setTimeout(this.getNextImage, 3000);
   }
 
-  getRandomImage = () => {
+  getNextImage = () => {
     const { currentImage, imagesKeys } = this.state;
     const newImage = getRandomImage(imagesKeys, currentImage);
 
     this.setState({ currentImage: newImage });
-    setTimeout(this.getRandomImage, 3000);
+    this.nextImage = setTimeout(this.getNextImage, 3000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.firstImage);
+    clearTimeout(this.nextImage);
   }
 
   render() {
