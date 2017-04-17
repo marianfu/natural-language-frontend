@@ -3,6 +3,7 @@ import AceEditor from 'react-ace';
 import { debounce } from 'lodash';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
+import 'brace/theme/chrome';
 import 'brace/theme/tomorrow';
 import 'brace/theme/github';
 import 'brace/theme/kuroir';
@@ -70,6 +71,7 @@ class TextEditor extends React.Component {
           onChange={this.handleChange}
           name="text_editor"
           showPrintMargin={false}
+          showGutter={this.props.showGutter}
           editorProps={{ $blockScrolling: true }}
         />
       </div>

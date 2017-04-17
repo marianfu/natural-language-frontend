@@ -11,7 +11,7 @@ class Home extends React.Component {
     this.state = {
       writers: [1, 0, 0]
     };
-    this.handleTypingEnd = debounce(this.handleTypingEnd.bind(this), 500);
+    this.handleTypingEnd = debounce(this.handleTypingEnd.bind(this), 800);
   }
 
   static defaultProps = {
@@ -56,16 +56,20 @@ class Home extends React.Component {
 
     return (
       <RotatingImage images={this.props.images} className="typewriter">
-        <div>
-          <TypeWriter typing={this.state.writers[0]} onTypingEnd={this.handleTypingEnd} maxDelay={50}>
-            Read text.
-          </TypeWriter>
-          <TypeWriter typing={this.state.writers[1]} onTypingEnd={this.handleTypingEnd} maxDelay={50}>
-            Write text.
-          </TypeWriter>
-          <TypeWriter typing={this.state.writers[2]} onTypingEnd={this.handleTypingEnd} maxDelay={50}>
-            Learn code.
-          </TypeWriter>
+        <div className="outer">
+          <div className="middle">
+            <div className="inner">
+              <TypeWriter typing={this.state.writers[0]} onTypingEnd={this.handleTypingEnd} maxDelay={50}>
+                Read text.
+              </TypeWriter>
+              <TypeWriter typing={this.state.writers[1]} onTypingEnd={this.handleTypingEnd} maxDelay={50}>
+                Write text.
+              </TypeWriter>
+              <TypeWriter typing={this.state.writers[2]} onTypingEnd={this.handleTypingEnd} maxDelay={50}>
+                Learn code.
+              </TypeWriter>
+            </div>
+          </div>
         </div>
       </RotatingImage>
     );
