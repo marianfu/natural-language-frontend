@@ -11,17 +11,6 @@ class App extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    const req = new Request();
-    req.doGet('/lessons', {level: 'Inicial'})
-      .then(function({ data }) {
-        console.log(data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-
   render() {
 
     return (
