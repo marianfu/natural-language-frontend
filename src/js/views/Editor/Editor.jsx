@@ -4,6 +4,7 @@ import TextEditor from 'js/components/TextEditor';
 import { themes, fontSizes } from 'js/components/TextEditor/options';
 import { Row, Col, Card } from 'antd';
 import pseudo from 'pseudo-js';
+import axios from 'axios';
 import './styles.scss';
 
 export default class Editor extends React.Component {
@@ -37,6 +38,18 @@ export default class Editor extends React.Component {
   handleChangeText = (text) => {
     var javascript = pseudo.compileToJS(text);
     var ast = JSON.stringify(pseudo.compileToSyntaxTree(text), null, '\t');
+    const object = { text: text}
+    
+    axios({
+      method: 'post', 
+      url: 'http://localhost:8000/pseudocode', 
+      data: object, 
+    })
+      .then( ({ data }) => {
+        console.log(data);
+      })
+    ;
+
     this.setState((previousState) => {
       return {
         text,
