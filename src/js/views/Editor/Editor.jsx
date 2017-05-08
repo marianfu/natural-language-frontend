@@ -1,9 +1,10 @@
 import React from 'react';
+import { findIndex } from 'lodash';
 import TextEditor from 'js/components/TextEditor';
 import { themes, fontSizes } from 'js/components/TextEditor/options';
 import { Row, Col, Card } from 'antd';
-import OptionsBar from './components/OptionsBar';
 import pseudo from 'pseudo-js';
+import axios from 'axios';
 import './styles.scss';
 
 export default class Editor extends React.Component {
@@ -21,6 +22,11 @@ export default class Editor extends React.Component {
     this.handleChangeFontSize = this.handleChangeFontSize.bind(this);
   }
 
+  componentDidMount() {
+    const { fetchLessons, lessons } = this.props;
+    !lessons.exercises ? fetchLessons(1) : null;
+  }
+
   handleChangeTheme(theme) {
     this.props.changeTextEditorTheme(theme);
   }
@@ -32,6 +38,18 @@ export default class Editor extends React.Component {
   handleChangeText = (text) => {
     var javascript = pseudo.compileToJS(text);
     var ast = JSON.stringify(pseudo.compileToSyntaxTree(text), null, '\t');
+    const object = { text: text}
+    
+    axios({
+      method: 'post', 
+      url: 'http://localhost:8000/pseudocode', 
+      data: object, 
+    })
+      .then( ({ data }) => {
+        console.log(data);
+      })
+    ;
+
     this.setState((previousState) => {
       return {
         text,
@@ -41,17 +59,30 @@ export default class Editor extends React.Component {
     });
   }
 
+  getNextExercise = () => {
+    const { exercises } = this.props.lessons[0];
+    const index = findIndex(exercises, (e) => e.done === false);
+    return index > -1 ? exercises[index] : null;
+  };
+
   render() {
+    const exercise = this.props.lessons[0]
+      ? this.getNextExercise()
+      : null;
     return (
       <Row className="editorContainer">
         <Col span={6}>
           <Card className="card" title="Introduction" bordered={false}>
-            <p>Instructions + possible tutorial goes here</p>
-            <p>Instructions + possible tutorial goes here</p>
-            <p>Instructions + possible tutorial goes here</p>
-            <p>Instructions + possible tutorial goes here</p>
-            <p>Instructions + possible tutorial goes here</p>
-            <p>Instructions + possible tutorial goes here</p>
+            {exercise ?
+              <div>
+                <h3>{exercise.title}</h3>
+                <p>{exercise ? exercise.description : 'Possible exercise'}</p>
+                <div className='instructions'>
+                  <p>{exercise.instructions}</p>
+                </div>
+              </div>
+              : <p>Possible exercise</p>
+            }
           </Card>
         </Col>
         <Col span={9}>

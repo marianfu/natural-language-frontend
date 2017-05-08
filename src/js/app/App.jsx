@@ -1,7 +1,8 @@
 import React from 'react';
 import { Layout } from 'antd';
-import Nav from '../Nav';
+import Nav from '../components/Nav';
 import './styles.scss';
+import Request from 'js/services/request';
 const { Header, Content, Footer } = Layout;
 
 class App extends React.Component {
