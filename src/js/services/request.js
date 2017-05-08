@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class Request {
 
   constructor() {
-    this.url = 'http://localhost:3001';
+    this.url = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001';
   }
 
   doGet(url, params) {

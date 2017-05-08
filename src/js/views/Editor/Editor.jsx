@@ -6,6 +6,8 @@ import { Row, Col, Card } from 'antd';
 import pseudo from 'pseudo-js';
 import axios from 'axios';
 import './styles.scss';
+import Request from 'js/services/request';
+import Translate from 'js/services/translate';
 
 export default class Editor extends React.Component {
 
@@ -39,16 +41,15 @@ export default class Editor extends React.Component {
     var javascript = pseudo.compileToJS(text);
     var ast = JSON.stringify(pseudo.compileToSyntaxTree(text), null, '\t');
     const object = { text: text}
-    
-    axios({
-      method: 'post', 
-      url: 'http://localhost:8000/pseudocode', 
-      data: object, 
-    })
-      .then( ({ data }) => {
-        console.log(data);
-      })
-    ;
+   
+    // axios({
+    //   method: 'post', 
+    //   url: 'http://localhost:8000/pseudocode', 
+    //   data: object, 
+    // }) 
+    Translate.translate(text).then( ({ data }) => {
+      console.log(data);
+    });
 
     this.setState((previousState) => {
       return {
